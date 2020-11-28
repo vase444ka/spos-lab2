@@ -24,8 +24,7 @@ public class BakeryLock extends AbstractFixnumLock implements FixnumLock {
             if (i != tid) {
                 while (entering.get(i) == 1)
                     Thread.yield();
-                while (ticket.get(i) != 0 && ( ticket.get(tid) > ticket.get(i)  ||
-                        (ticket.get(tid) == ticket.get(i) && tid > i)))
+                while (ticket.get(i) != 0 && ( ticket.get(tid) > ticket.get(i)  || (ticket.get(tid) == ticket.get(i) && tid > i)))
                     Thread.yield();
             }
     }

@@ -60,7 +60,7 @@ public abstract class AbstractFixnumLock implements FixnumLock{
         }
     }
 
-    private void reset() {
+    public void reset() {
         synchronized (syncObj) {
             registeredThreads.clear();
             this.cntFreeThreads = numberOfThreads;
