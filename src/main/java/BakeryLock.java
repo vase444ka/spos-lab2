@@ -17,7 +17,7 @@ public class BakeryLock extends AbstractFixnumLock implements FixnumLock {
         register();
         int tid = getId();
         entering.set(tid, 1);
-        int ticket_number = get_max_ticket_number() + 1;
+        int ticket_number = getMaxTicketNumber() + 1;
         ticket.set(tid, ticket_number);
         entering.set(tid, 0);
         for (int i = 0; i < ticket.length(); ++i)
@@ -55,7 +55,7 @@ public class BakeryLock extends AbstractFixnumLock implements FixnumLock {
         return null;
     }
 
-    private int get_max_ticket_number() {
+    private int getMaxTicketNumber() {
         int max = 0;
         for (int i = 0; i < this.numberOfThreads; ++i) {
             int current = this.ticket.get(i);
