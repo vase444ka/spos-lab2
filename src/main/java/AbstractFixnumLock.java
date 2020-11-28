@@ -24,7 +24,7 @@ public abstract class AbstractFixnumLock implements FixnumLock{
 
     @Override
     public int getId() {
-        for (int i = 0; i < numberOfThreads; ++i) {
+        for (int i = 0; i < this.numberOfThreads; ++i) {
             if (this.registeredThreads.get(i) == Thread.currentThread().getId()) {
                 return i;
             }
