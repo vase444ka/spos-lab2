@@ -6,4 +6,5 @@ public interface FixnumLock extends Lock {
     int unregister();
     void lock();
     void unlock();
+
 }

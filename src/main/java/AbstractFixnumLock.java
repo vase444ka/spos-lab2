@@ -1,10 +1,9 @@
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public abstract class AbstractFixnumLock implements FixnumLock{
-    private int numberOfThreads;
+    protected int numberOfThreads;
     private int cntFreeThreads;
     private List<Long> registeredThreads;
     private List<Integer> freeIDs;
@@ -24,11 +23,9 @@ public abstract class AbstractFixnumLock implements FixnumLock{
 
     @Override
     public int getId() {
-        for (int i = 0; i < this.numberOfThreads; ++i) {
-            if (this.registeredThreads.get(i) == Thread.currentThread().getId()) {
+        for (int i = 0; i < this.numberOfThreads; ++i)
+            if (this.registeredThreads.get(i) == Thread.currentThread().getId())
                 return i;
-            }
-        }
         return -1;
     }
 
@@ -63,7 +60,7 @@ public abstract class AbstractFixnumLock implements FixnumLock{
         }
     }
 
-    private void reset() {
+    public void reset() {
         synchronized (syncObj) {
             registeredThreads.clear();
             this.cntFreeThreads = numberOfThreads;

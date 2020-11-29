@@ -1,18 +1,27 @@
 public class Counter {
-    private Integer data = 0;
+    private Integer value = 0;
 
     public Counter() {}
 
     public void increment() {
-        ++data;
+        ++value;
     }
 
     public void decrement() {
-        --data;
+        --value;
     }
-
 
     public String toString() {
-        return data.toString();
+        return value.toString();
     }
+
+    public Integer getValue(){
+        return value;
+    }
+
+    public void setValue(Integer newValue){
+        value = newValue;
+    }
+
+
 }
