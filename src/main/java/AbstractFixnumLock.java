@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class AbstractFixnumLock implements FixnumLock{
+public abstract class AbstractFixnumLock implements FixnumLock {
     protected int numberOfThreads;
     private int cntFreeThreads;
     private List<Long> registeredThreads;
@@ -17,7 +17,7 @@ public abstract class AbstractFixnumLock implements FixnumLock{
         this.freeIDs = new ArrayList<>();
         for (int i = 0; i < numberOfThreads; i++) {
             this.freeIDs.add(i);
-            this.registeredThreads.add((long) -1);
+            this.registeredThreads.add((long) i);
         }
     }
 
@@ -51,10 +51,10 @@ public abstract class AbstractFixnumLock implements FixnumLock{
             if (id != -1) {
                 registeredThreads.set(id, (long) -1);
                 freeIDs.add(id);
-//                System.out.println("Unregister thread with id " + id + ".");
+                System.out.println("Unregister thread with id " + id + ".");
                 return id;
             } else {
-//                System.out.println("Thread with actual id " + Thread.currentThread().getId() + " is not registered.");
+                System.out.println("Thread with actual id " + Thread.currentThread().getId() + " is not registered.");
             }
             return -1;
         }
