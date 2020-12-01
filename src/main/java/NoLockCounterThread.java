@@ -1,25 +1,21 @@
-class CounterThread implements Runnable {
+class NoLockCounterThread implements Runnable {
     volatile Counter counter;
-    volatile FixnumLock lock;
     boolean isIncrement;
     int cntIterations;
 
-    public CounterThread(Counter counter, FixnumLock lock, boolean increment, int cntIterations) {
+    public NoLockCounterThread(Counter counter,boolean increment, int cntIterations) {
         this.counter = counter;
-        this.lock = lock;
         this.isIncrement = increment;
         this.cntIterations = cntIterations;
     }
 
     public void run() {
         for (int i = 0; i < cntIterations; i++) {
-            lock.lock();
             if (isIncrement)
                 counter.increment();
             else
                 counter.decrement();
-            lock.unlock();
-          //  System.out.println("(Lock) Counter value is " + counter.toString());
+          //  System.out.println("(No lock) Counter value is " + counter.toString());
         }
     }
 }
