@@ -1,3 +1,8 @@
+package com.Fixnum;
+
+import com.Fixnum.AbstractFixnumLock;
+import com.Fixnum.FixnumLock;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 import java.util.concurrent.locks.Condition;

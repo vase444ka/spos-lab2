@@ -1,3 +1,7 @@
+package com.Fixnum;
+
+import com.Fixnum.AbstractFixnumLock;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -5,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Condition;
 
-public class DeckerLock extends AbstractFixnumLock{
+public class DeckerLock extends AbstractFixnumLock {
 
     private AtomicLong turn = new AtomicLong();
     AtomicBoolean[] a = new AtomicBoolean[]{new AtomicBoolean(false), new AtomicBoolean(false)};
@@ -93,7 +97,7 @@ public class DeckerLock extends AbstractFixnumLock{
     }
 
 
-    DeckerLock(int numberOfThreads) {
+    public DeckerLock(int numberOfThreads) {
         super(numberOfThreads);
     }
 
