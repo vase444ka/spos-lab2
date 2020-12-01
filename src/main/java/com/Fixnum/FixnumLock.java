@@ -1,3 +1,5 @@
+package com.Fixnum;
+
 import java.util.concurrent.locks.Lock;
 
 public interface FixnumLock extends Lock {

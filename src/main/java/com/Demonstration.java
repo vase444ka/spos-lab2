@@ -1,3 +1,9 @@
+package com;
+
+import com.Counters.*;
+import com.Fixnum.DeckerLock;
+import com.Fixnum.FixnumLock;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -71,7 +77,7 @@ public class Demonstration {
 
     public void demonstrateRaceCondition() throws InterruptedException {
         System.out.println("\n\n-----------------------------------------");
-        System.out.println("Demonstration of race condition");
+        System.out.println("com.Demonstration of race condition");
         numberOfThreads = 2;
         System.out.println("The initial counter value is " + counter.getValue() + ". Number of threads is " + (numberOfThreads) + ". " +
                 "After all manipulations the counter value must be zero.");
@@ -88,7 +94,7 @@ public class Demonstration {
 
     public void demonstrateDekkerSolution() throws InterruptedException {
         System.out.println("\n\n-----------------------------------------");
-        System.out.println("Demonstration of Dekker solution of race condition");
+        System.out.println("com.Demonstration of Dekker solution of race condition");
         System.out.println("The initial counter value is 0. Number of threads is " + (numberOfThreads) + ". " +
                 "After all manipulations the counter value must be zero.");
         numberOfThreads = 2;
