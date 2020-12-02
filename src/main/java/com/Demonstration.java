@@ -1,6 +1,7 @@
 package com;
 
 import com.Counters.*;
+import com.Fixnum.BakeryLock;
 import com.Fixnum.DeckerLock;
 import com.Fixnum.FixnumLock;
 
@@ -36,8 +37,20 @@ public class Demonstration {
         System.out.println("Not quiet implemented yet...");
     }
 
-    public void demoTask3(){
-        System.out.println("Not quiet implemented yet...");
+    public void demoTask3() throws InterruptedException {
+        System.out.println("\n\n-----------------------------------------");
+        System.out.println("com.Demonstration of Bakery Lock solution of race condition");
+        System.out.println("The initial counter value is 0. Number of threads is " + (numberOfThreads) + ". " +
+                "After all manipulations the counter value must be zero.");
+        numberOfThreads = 2;
+        ArrayList<Thread> counterThreads = generateArrayOfThreads(new BakeryLock(2));
+        for (var thread : counterThreads)
+            thread.start();
+        for (var thread : counterThreads)
+            thread.join();
+
+        System.out.println("After all operations counter value is: " + counter.getValue());
+        counter.setValue(0);
     }
 
     public void demoTask4(){

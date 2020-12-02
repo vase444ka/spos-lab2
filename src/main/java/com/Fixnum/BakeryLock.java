@@ -11,7 +11,7 @@ public class BakeryLock extends AbstractFixnumLock implements FixnumLock {
     AtomicIntegerArray ticket;
     AtomicIntegerArray entering;
 
-    BakeryLock(int numberOfThreads) {
+    public BakeryLock(int numberOfThreads) {
         super(numberOfThreads);
         this.ticket = new AtomicIntegerArray(numberOfThreads);
         this.entering = new AtomicIntegerArray(numberOfThreads);
