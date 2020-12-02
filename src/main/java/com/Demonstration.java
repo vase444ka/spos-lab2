@@ -4,6 +4,7 @@ import com.Counters.*;
 import com.Fixnum.BakeryLock;
 import com.Fixnum.DeckerLock;
 import com.Fixnum.FixnumLock;
+import com.SleepWakeup.DeadLockSimulator;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -53,8 +54,8 @@ public class Demonstration {
         counter.setValue(0);
     }
 
-    public void demoTask4(){
-        System.out.println("Not quiet implemented yet...");
+    public void demoTask4() throws InterruptedException {
+        demontrateDeadLock();
     }
 
     public void demoTask5(){
@@ -87,10 +88,10 @@ public class Demonstration {
         return threads;
     }
 
-
+// Task 1
     public void demonstrateRaceCondition() throws InterruptedException {
         System.out.println("\n\n-----------------------------------------");
-        System.out.println("com.Demonstration of race condition");
+        System.out.println("Demonstration of race condition");
         numberOfThreads = 2;
         System.out.println("The initial counter value is " + counter.getValue() + ". Number of threads is " + (numberOfThreads) + ". " +
                 "After all manipulations the counter value must be zero.");
@@ -107,7 +108,7 @@ public class Demonstration {
 
     public void demonstrateDekkerSolution() throws InterruptedException {
         System.out.println("\n\n-----------------------------------------");
-        System.out.println("com.Demonstration of Dekker solution of race condition");
+        System.out.println("Demonstration of Dekker solution of race condition");
         System.out.println("The initial counter value is 0. Number of threads is " + (numberOfThreads) + ". " +
                 "After all manipulations the counter value must be zero.");
         numberOfThreads = 2;
@@ -120,4 +121,38 @@ public class Demonstration {
         System.out.println("(Dekker) After all operations counter value is: " + counter.getValue());
         counter.setValue(0);
     }
+
+    // Task 4
+    public void demontrateDeadLock() throws InterruptedException {
+        System.out.println("\n\n-----------------------------------------");
+        System.out.println("Demonstration of deadlock");
+        DeadLockSimulator dls = new DeadLockSimulator();
+
+        // create thread for producer to produce new element to the list
+        Thread producerThread = new Thread(() -> {
+            try {
+                dls.produce();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // create thread for consumer to consume elements created by the producer
+        Thread consumerThread = new Thread(() -> {
+            try {
+                dls.consume();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        producerThread.start();
+        consumerThread.start();
+
+        producerThread.join();
+        consumerThread.join();
+    }
+
 }
