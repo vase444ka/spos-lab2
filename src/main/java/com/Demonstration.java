@@ -62,7 +62,7 @@ public class Demonstration {
     }
 
     public void demoTask5() throws InterruptedException {
-        numberOfThreads = 4;
+        numberOfThreads = 10;
         System.out.println("\n\n-----------------------------------------");
         System.out.println("com.Demonstration of Improved Bakery Lock solution of race condition");
         System.out.println("The initial counter value is 0. Number of threads is " + (numberOfThreads) + ". " +
@@ -115,11 +115,11 @@ public class Demonstration {
     }
 
     public void demonstrateDekkerSolution() throws InterruptedException {
+        numberOfThreads = 2;
         System.out.println("\n\n-----------------------------------------");
         System.out.println("Demonstration of Dekker solution of race condition");
         System.out.println("The initial counter value is 0. Number of threads is " + (numberOfThreads) + ". " +
                 "After all manipulations the counter value must be zero.");
-        numberOfThreads = 2;
         ArrayList<Thread> counterThreads = generateArrayOfThreads(new DeckerLock(2));
         for (var thread : counterThreads)
             thread.start();

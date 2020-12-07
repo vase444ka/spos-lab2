@@ -14,6 +14,10 @@ public class ImprovedBakeryLock implements Lock{
     public void lock(){
         final long ticket = ticketCounter.getAndIncrement() + 1;
 
+        if (ticket < 0) {
+            throw new IllegalArgumentException("ticket out of range");
+        }
+
         while(unlockedCounter.get() != ticket){
             Thread.yield();
         }
@@ -29,15 +33,18 @@ public class ImprovedBakeryLock implements Lock{
 
     @Override
     public boolean tryLock() {
-        final long ticket = ticketCounter.getAndIncrement() + 1;
+        final long ticket = ticketCounter.get() + 1;
+
+        if (ticket < 0) {
+            throw new IllegalArgumentException("ticket out of range");
+        }
 
         if (unlockedCounter.get() != ticket){
             return false;
         }
 
-
-
-        return false;
+        long expected = ticket - 1;
+        return unlockedCounter.compareAndSet(expected, ticket);
     }
 
     @Override
