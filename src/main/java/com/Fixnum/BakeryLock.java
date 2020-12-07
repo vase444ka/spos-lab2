@@ -1,8 +1,5 @@
 package com.Fixnum;
 
-import com.Fixnum.AbstractFixnumLock;
-import com.Fixnum.FixnumLock;
-
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 import java.util.concurrent.locks.Condition;
@@ -22,7 +19,7 @@ public class BakeryLock extends AbstractFixnumLock implements FixnumLock {
         register();
         int tid = getId();
         entering.set(tid, 1);
-        int ticket_number = getMaxTicketNumber() + 1;
+        int ticket_number = _getMaxTicketNumber() + 1;
         ticket.set(tid, ticket_number);
         entering.set(tid, 0);
         for (int i = 0; i < ticket.length(); ++i)
@@ -60,7 +57,7 @@ public class BakeryLock extends AbstractFixnumLock implements FixnumLock {
         return null;
     }
 
-    private int getMaxTicketNumber() {
+    private int _getMaxTicketNumber() {
         int max = 0;
         for (int i = 0; i < this.numberOfThreads; ++i) {
             int current = this.ticket.get(i);

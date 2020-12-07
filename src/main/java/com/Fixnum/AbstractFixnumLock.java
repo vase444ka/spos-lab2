@@ -1,7 +1,5 @@
 package com.Fixnum;
 
-import com.Fixnum.FixnumLock;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public abstract class AbstractFixnumLock implements FixnumLock {
         this.freeIDs = new ArrayList<>();
         for (int i = 0; i < numberOfThreads; i++) {
             this.freeIDs.add(i);
-            this.registeredThreads.add((long) i);
+            this.registeredThreads.add((long) -1);
         }
     }
 

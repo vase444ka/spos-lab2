@@ -5,9 +5,12 @@ import com.Fixnum.BakeryLock;
 import com.Fixnum.DeckerLock;
 import com.Fixnum.FixnumLock;
 import com.SleepWakeup.DeadLockSimulator;
+import com.Locks.ImprovedBakeryLock;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.locks.Lock;
+
 
 public class Demonstration {
 
@@ -39,11 +42,11 @@ public class Demonstration {
     }
 
     public void demoTask3() throws InterruptedException {
+        numberOfThreads = 2;
         System.out.println("\n\n-----------------------------------------");
         System.out.println("com.Demonstration of Bakery Lock solution of race condition");
         System.out.println("The initial counter value is 0. Number of threads is " + (numberOfThreads) + ". " +
                 "After all manipulations the counter value must be zero.");
-        numberOfThreads = 2;
         ArrayList<Thread> counterThreads = generateArrayOfThreads(new BakeryLock(2));
         for (var thread : counterThreads)
             thread.start();
@@ -58,15 +61,26 @@ public class Demonstration {
         demontrateDeadLock();
     }
 
-    public void demoTask5(){
-        System.out.println("Not quiet implemented yet...");
-    }
+    public void demoTask5() throws InterruptedException {
+        numberOfThreads = 4;
+        System.out.println("\n\n-----------------------------------------");
+        System.out.println("com.Demonstration of Improved Bakery Lock solution of race condition");
+        System.out.println("The initial counter value is 0. Number of threads is " + (numberOfThreads) + ". " +
+                "After all manipulations the counter value must be zero.");
+        ArrayList<Thread> counterThreads = generateArrayOfThreads(new ImprovedBakeryLock());
+        for (var thread : counterThreads)
+            thread.start();
+        for (var thread : counterThreads)
+            thread.join();
+
+        System.out.println("After all operations counter value is: " + counter.getValue());
+        counter.setValue(0);    }
 
     public void demoTask6(){
         System.out.println("Not quiet implemented yet...");
     }
 
-    private ArrayList<Thread> generateArrayOfThreads(FixnumLock lock) {
+    private ArrayList<Thread> generateArrayOfThreads(Lock lock) {
         ArrayList<Thread> threads = new ArrayList<>();
         int numInc = numberOfThreads / 2;
         int numDec = numberOfThreads / 2;
@@ -77,13 +91,7 @@ public class Demonstration {
                 numInc--;
             else
                 numDec--;
-            if(lock != null){
-                threads.add(new Thread(new CounterThread(counter, lock, isInc, 20000)));
-            }
-            else{
-                threads.add(new Thread(new NoLockCounterThread(counter, isInc, 20000)));
-            }
-
+            threads.add(new Thread(new CounterThread(counter, lock, isInc, 20000)));
         }
         return threads;
     }

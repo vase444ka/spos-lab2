@@ -1,14 +1,15 @@
 package com.Counters;
 
-import com.Fixnum.FixnumLock;
+import java.util.concurrent.locks.Lock;
+
 
 public class CounterThread implements Runnable {
     volatile Counter counter;
-    volatile FixnumLock lock;
+    volatile Lock lock;
     boolean isIncrement;
     int cntIterations;
 
-    public CounterThread(Counter counter, FixnumLock lock, boolean increment, int cntIterations) {
+    public CounterThread(Counter counter, Lock lock, boolean increment, int cntIterations) {
         this.counter = counter;
         this.lock = lock;
         this.isIncrement = increment;
@@ -17,13 +18,15 @@ public class CounterThread implements Runnable {
 
     public void run() {
         for (int i = 0; i < cntIterations; i++) {
-            lock.lock();
+            if (lock != null)
+                lock.lock();
             if (isIncrement)
                 counter.increment();
             else
                 counter.decrement();
-            lock.unlock();
-          //  System.out.println("(Lock) com.Counters.Counter value is " + counter.toString());
+            if (lock != null)
+                lock.unlock();
+           // System.out.println("(Lock) com.Counters.Counter value is " + counter.toString());
         }
     }
 }
